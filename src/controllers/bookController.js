@@ -1,6 +1,10 @@
-export const getAllBooks = (req, res) => {
+import { getAll } from "../services/bookService.js"
+
+
+export const getAllBooks = async (req, res) => {
     try {
-        res.send({ message: "obteniendo todos los libros" })
+        let books = await getAll()
+        res.send(books)
     } catch (error) {
         res.json({ message: error.message })
     }
