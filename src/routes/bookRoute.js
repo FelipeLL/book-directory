@@ -9,7 +9,7 @@ const router = express.Router()
 
 router.get("/", getAllBooks)
 router.post("/create", createBook)
-router.put("/update", updateBook)
-router.delete("/delete", deleteBook)
+router.put("/update/:id", updateBook)
+router.delete("/delete/:id", deleteBook)
 
 export default router

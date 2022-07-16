@@ -1,35 +1,38 @@
-import { getAll } from "../services/bookService.js"
+import { create, getAll, remove, update } from "../services/bookService.js"
 
 
 export const getAllBooks = async (req, res) => {
     try {
         let books = await getAll()
-        res.send(books)
+        res.json(books)
     } catch (error) {
         res.json({ message: error.message })
     }
 }
 
-export const createBook = (req, res) => {
+export const createBook = async (req, res) => {
     try {
-        res.send({ message: "creando un libro" })
+        let books = await create(req.body.title)
+        res.send({ message: "Book has been created" })
     } catch (error) {
         res.json({ message: error.message })
     }
 }
 
-export const updateBook = (req, res) => {
+export const updateBook = async (req, res) => {
     try {
-        res.send({ message: "actualizando un libro" })
+        await update(req.params.id, req.body.title)
+        res.send({ message: "Book has been updated" })
     } catch (error) {
         res.json({ message: error.message })
     }
 }
 
-export const deleteBook = (req, res) => {
+export const deleteBook = async (req, res) => {
     try {
-        res.send({ message: "eliminando un libro" })
+        await remove(req.params.id)
+        res.send({ message: "Book has been deleted" })
     } catch (error) {
-        res.json({ message: error.message })
+        res.status(404).send(error)
     }
 }
